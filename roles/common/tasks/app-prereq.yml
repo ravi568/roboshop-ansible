@@ -1,0 +1,20 @@
+
+- name: create Roboshop user
+  ansible.builtin.user:
+    name: roboshop
+
+- name: Delete old App Directory
+  ansible.builtin.file:
+    path: /app
+    state: absent
+
+- name: Create Application Directory
+  ansible.builtin.file:
+    path: /app
+    state: directory
+
+- name: Downloading and extract {{ component }} Content
+  ansible.builtin.unarchive:
+    src: curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/{{ component }}.zip
+    dest: /app
+    remote_src: yes

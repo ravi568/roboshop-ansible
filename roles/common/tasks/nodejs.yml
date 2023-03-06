@@ -1,0 +1,25 @@
+
+#
+#    # Schema Setup Function
+#    schema_setup
+#
+#    # SystemD Function
+#    systemd_setup
+#
+#  }
+
+- name: Configure NodeJS Repo
+  ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+
+- name: Install NodeJS
+  ansible.builtin.yum:
+    name: nodejs
+    state: installed
+
+- name: App-prerequisites setup
+    ansible.builtin.import_tasks:
+      file: app-prereq.yml
+
+- name: Installing NodeJS Dependencies
+  community.general.npm:
+    path: /app
