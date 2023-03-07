@@ -1,19 +1,21 @@
 
-- name: Configure NodeJS Repo
-  ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
 
-- name: Install NodeJS
+- name: Install python
   ansible.builtin.yum:
-    name: nodejs
-    state: installed
+     name:
+       - python36
+       - gcc
+       - python3-devel
+     state: installed
 
 - name: App-prerequisites setup
   ansible.builtin.import_tasks:
     file: app-prereq.yml
 
-- name: Installing NodeJS Dependencies
-  community.general.npm:
-    path: /app
+- name: Installing python Dependencies
+  community.general.pip:
+     requirements: /app/requirements.txt
+     executable: pip3.6
 
 - name: schema setup
   ansible.builtin.import_tasks:

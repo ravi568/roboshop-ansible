@@ -1,0 +1,53 @@
+#schema_setup(){
+#
+#  if [ "$schema_type" == "mongo" ]; then
+#      print_head "Copy MongoDB Repo File"
+#      cp ${code_dir}/configs/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>${log_file}
+#      status_check $?
+#
+#      print_head "Install Mongo Client"
+#      yum install mongodb-org-shell -y &>>${log_file}
+#      status_check $?
+#
+#      print_head "Load Schema"
+#      mongo --host mongodb.kalluriravidevops71.online </app/schema/${component}.js &>>${log_file}
+#      status_check $?
+#  elif [ "$schema_type" == "mysql" ];then
+#       print_head "installing mysql client"
+#       yum install mysql -y &>>${log_file}
+#       status_check $?
+#
+#       print_head " Load schema"
+#       mysql -h mysql.kalluriravidevops71.online -uroot -p${mysql_root_password} < /app/schema/shipping.sql &>>${log_file}
+#       status_check $?
+#  fi
+#}
+
+-  name: Mongodb Schema
+   when: schema_type == "mongo"
+   block:
+    - name: Copy MongoDB Repo File
+      ansible.builtin.copy:
+        src: mongodb.repo
+        dest: /etc/yum.repos.d/mongodb.repo
+
+    - name: Install Mongo Client
+      ansible.builtin.yum:
+        name: mongodb-org-shell
+        state: installed
+
+    - name: Load Schema
+      ansible.builtin.shell:
+        name: mongo --host mongodb.kalluriravidevops71.online </app/schema/{{component}}.js
+
+- name: Mysql Schema
+  when: schema_type == "mysql"
+  block:
+    - name: installing mysql client
+      ansible.builtin.yum:
+       name: mysql
+       state: installed
+
+    - name: load schema
+      ansible.builtin.shell:
+       name: mysql -h mysql.kalluriravidevops71.online -uroot -pRoboShop@1 < /app/schema/{{component}}.sql
