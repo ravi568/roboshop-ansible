@@ -25,5 +25,5 @@
        state: installed
 
     - name: load schema
-      ansible.builtin.shell:
-       name: mysql -h mysql-dev.kalluriravidevops71.online -uroot -pRoboShop@1 < /app/schema/{{component}}.sql
+      ansible.builtin.shell: mysql -h mysql-dev.kalluriravidevops71.online -uroot -pRoboShop@1 < /app/schema/{{component}}.sql
+
