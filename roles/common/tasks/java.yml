@@ -9,7 +9,7 @@
     file: app-prereq.yml
 
 - name: Installing maven Dependencies
-  community.general.shell: mvn clean package;mv target/{{component}}-1.0.jar {{component}}.jar
+  ansible.general.shell: mvn clean package;mv target/{{component}}-1.0.jar {{component}}.jar
   args:
      chdir: /app
 
@@ -21,4 +21,3 @@
 - name: systemd setup
   ansible.builtin.import_tasks:
     file: systemd-setup.yml
-  when: schema_type is defined

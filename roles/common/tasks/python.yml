@@ -13,7 +13,7 @@
     file: app-prereq.yml
 
 - name: Installing python Dependencies
-  community.general.pip:
+  ansible.builtin.pip:
      requirements: /app/requirements.txt
      executable: pip3.6
 
@@ -25,4 +25,3 @@
 - name: systemd setup
   ansible.builtin.import_tasks:
     file: systemd-setup.yml
-  when: schema_type is defined
