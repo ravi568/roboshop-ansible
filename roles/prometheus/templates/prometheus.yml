@@ -1,3 +1,4 @@
+#  ansible-pull -i localhost, -U  https://github.com/ravi568/roboshop-ansible.git roboshop.yml  -e role_name=frontend
 # my global config
 global:
   scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
@@ -23,3 +24,6 @@ scrape_configs:
     ec2_sd_configs:
       - region: us-east-1
         port: 9100
+        filters:
+          - name: "tag-monitor"
+            values: ["yes"]
