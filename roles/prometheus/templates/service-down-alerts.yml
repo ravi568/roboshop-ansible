@@ -4,11 +4,12 @@ groups:
     { % for component in components % }
 
       - alert: serverdown alert - {{ component.name }} service
-        expr: node_systemd_unit_state{exported_name={{ component.service_name }}.service,state="active"} < 1
+        expr: node_systemd_unit_state{exported_name="{{ component.service_name }}.service",state="active"} < 1
         for: 30s
         labels:
           severity: critical
           appname: {{ component.name }}
         annotations:
-          summary: service down on some server - service name - {{ component.name }}.service
+          summary: service down on some server -  {{ component.name }}.service
     { % endfor % }
+
