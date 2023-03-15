@@ -8,7 +8,7 @@
     name: logstash
     state: restarted
     enable: true
-    daemon-reload: true
+    daemon_reload: true
 
 - name: check logstash is started or not
   ansible.builtin.shell: sleep 60 ; netstat -lntp | grep 5044
