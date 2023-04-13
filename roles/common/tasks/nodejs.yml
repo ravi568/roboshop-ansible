@@ -11,12 +11,12 @@
   ansible.builtin.import_tasks:
     file: app-prereq.yml
 
-- name: Installing NodeJS Dependencies
-#  community.general.npm:
-#    path: /app
-  ansible.builtin.shell: npm install
-  args:
-      chdir: /app
+#- name: Installing NodeJS Dependencies
+##  community.general.npm:
+##    path: /app
+#  ansible.builtin.shell: npm install
+#  args:
+#      chdir: /app
 
 
 - name: schema setup
